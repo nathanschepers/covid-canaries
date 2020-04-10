@@ -1,0 +1,172 @@
+date,region,active,new,deaths,recoveries
+2020/2/1,La Gomera,1,1,0,0
+2020/2/13,La Gomera,0,0,0,1
+2020/2/24,Tenerife,1,1,0,0
+2020/2/25,Tenerife,4,3,0,0
+2020/2/26,La Gomera,1,1,0,0
+2020/2/29,Tenerife,5,1,0,0
+2020/3/2,Tenerife,6,1,0,0
+2020/3/4,La Gomera,0,0,0,1
+2020/3/5,Tenerife,7,1,0,0
+2020/3/5,Gran Canaria,1,1,0,0
+2020/3/6,Tenerife,9,2,0,0
+2020/3/6,Gran Canaria,4,3,0,0
+2020/3/7,Tenerife,13,2,0,1
+2020/3/7,Fuerteventura,1,1,0,0
+2020/3/9,Tenerife,12,1,0,0
+2020/3/9,Gran Canaria,6,2,0,0
+2020/3/10,Tenerife,13,1,0,0
+2020/3/11,Tenerife,20,7,0,0
+2020/3/11,Gran Canaria,7,1,0,0
+2020/3/12,Tenerife,31,11,0,0
+2020/3/12,Gran Canaria,12,5,0,0
+2020/3/12,La Palma,2,2,0,0
+2020/3/13,Tenerife,45,14,0,0
+2020/3/13,Gran Canaria,13,1,0,0
+2020/3/13,Lanzarote,2,2,0,0
+2020/3/13,Gran Canaria,12,0,1,0
+2020/3/14,Tenerife,58,13,0,0
+2020/3/14,Gran Canaria,15,3,1,0
+2020/3/14,La Palma,3,1,0,0
+2020/3/14,Lanzarote,3,1,0,0
+2020/3/14,La Gomera,1,1,0,0
+2020/3/15,Tenerife,70,12,0,0
+2020/3/15,Gran Canaria,18,3,1,0
+2020/3/15,La Palma,5,2,0,0
+2020/3/15,Fuerteventura,3,2,0,0
+2020/3/16,Tenerife,69,0,1,0
+2020/3/16,Canaries,111,10,2,0
+2020/3/17,Canaries,138,27,2,8
+2020/3/18,Canaries,180,43,3,0
+2020/3/19,Canaries,208,29,3,1
+2020/3/20,Canaries,"277
+",69,4,0
+2020/3/20,Tenerife,192,,,
+2020/3/20,Gran Canaria,70,,,
+2020/3/20,La Gomera,3,,,
+2020/3/20,La Palma,7,,,
+2020/3/20,Lanzarote,3,,,
+2020/3/20,Fuerteventura,12,,,
+2020/3/20,El Hierro,1,1,0,0
+2020/3/21,Canaries,334,57,,
+2020/3/21,Tenerife,219,27,,
+2020/3/21,Gran Canaria,97,27,2,
+2020/3/21,La Gomera,3,,,
+2020/3/21,La Palma,11,,,
+2020/3/21,Lanzarote,4,,,
+2020/3/21,Fuerteventura,13,,,
+2020/3/21,El Hierro,1,,,
+2020/3/22,Canaries,398,,,
+2020/3/23,Canaries,481,67,7,7
+2020/3/23,Tenerife,293,,,
+2020/3/23,Gran Canaria,135,,,
+2020/3/23,La Palma,21,,,
+2020/3/23,Fuerteventura,18,,,
+2020/3/23,Lanzarote,9,,,
+2020/3/23,La Gomera,3,,,
+2020/3/23,El Hierro,2,,,
+2020/3/24,Canaries,557,76,16,8
+2020/3/24,Tenerife,338,,,
+2020/3/24,Gran Canaria,158,,,
+2020/3/24,La Palma,24,,,
+2020/3/24,Fuerteventura,18,,,
+2020/3/24,Lanzarote,13,,,
+2020/3/24,La Gomera,3,,,
+2020/3/24,El Hierro,3,,,
+2020/3/25,Canaries,657,100,21,15
+2020/3/25,Tenerife,409,,,
+2020/3/25,Gran Canaria,171,,,
+2020/3/25,La Palma,33,,,
+2020/3/25,Fuerteventura,20,,,
+2020/3/25,Lanzarote,17,,,
+2020/3/25,La Gomera,4,,,
+2020/3/25,El Hierro,3,,,
+2020/3/26,Canaries,784,127,24,18
+2020/3/27,Canaries,878,94,27,20
+2020/3/27,Tenerife,586,,,
+2020/3/27,Gran Canaria,197,,,
+2020/3/27,La Palma,39,,,
+2020/3/27,Fuerteventura,24,,,
+2020/3/27,Lanzarote,23,,,
+2020/3/27,La Gomera,6,,,
+2020/3/27,El Hierro,3,,,
+2020/3/28,Canaries,1025,147,36,25
+2020/3/28,Tenerife,671,,23,
+2020/3/28,Gran Canaria,253,,9,
+2020/3/28,La Palma,43,,1,
+2020/3/28,Fuerteventura,25,,0,
+2020/3/28,Lanzarote,24,,3,
+2020/3/28,La Gomera,6,,0,
+2020/3/28,El Hierro,3,,0,
+2020/3/29,Canaries,1125,100,39,30
+2020/3/29,Tenerife,712,,23,
+2020/3/29,Gran Canaria,288,,11,
+2020/3/29,La Palma,49,,2,
+2020/3/29,Fuerteventura,30,,0,
+2020/3/29,Lanzarote,35,,3,
+2020/3/29,La Gomera,8,,0,
+2020/3/29,El Hierro,3,,0,
+2020/3/30,Canaries,1204,79,40,32
+2020/3/30,Tenerife,721,,24,
+2020/3/30,Gran Canaria,341,,11,
+2020/3/30,La Palma,52,,2,
+2020/3/30,Lanzarote,48,,3,
+2020/3/30,Fuerteventura,31,,0,
+2020/3/30,La Gomera,8,,0,
+2020/3/30,El Hierro,3,,0,
+2020/3/31,Canaries,1262,58,55,57
+2020/3/31,Tenerife,741,,37,
+2020/3/31,Gran Canaria,365,,13,
+2020/3/31,La Palma,62,,2,
+2020/3/31,Lanzarote,51,,3,
+2020/3/31,Fuerteventura,32,,0,
+2020/3/31,La Gomera,8,,0,
+2020/3/31,El Hierro,3,,0,
+2020/4/1,Canaries,1380,118,62,77
+2020/4/1,Tenerife,826,,42,
+2020/4/1,Gran Canaria,384,,15,
+2020/4/1,Fuerteventura,32,,0,
+2020/4/1,Lanzarote,59,,3,
+2020/4/1,La Palma,68,,2,
+2020/4/1,El Hierro,3,,0,
+2020/4/1,La Gomera,8,,0,
+2020/4/2,Canaries,1444,64,68,94
+2020/4/2,Tenerife,870,,44,
+2020/4/2,Gran Canaria,396,,19,
+2020/4/2,La Palma,69,,2,
+2020/4/2,Fuerteventura,33,,0,
+2020/4/2,Lanzarote,65,,3,
+2020/4/2,La Gomera,8,,0,
+2020/4/2,El Hierro,3,,0,
+2020/4/3,Canaries,1490,46,73,102
+2020/4/3,Tenerife,893,,48,
+2020/4/3,Gran Canaria,416,,19,
+2020/4/3,La Palma,69,,3,
+2020/4/3,Fuerteventura,34,,0,
+2020/4/3,Lanzarote,67,,3,
+2020/4/3,La Gomera,8,,0,
+2020/4/3,El Hierro,3,,0,
+2020/4/4,Canaries,1564,74,78,123
+2020/4/4,Tenerife,946,,51,
+2020/4/4,Gran Canaria,435,,21,
+2020/4/4,La Palma,69,,3,
+2020/4/4,Lanzarote,68,,3,
+2020/4/4,Fuerteventura,35,,0,
+2020/4/4,La Gomera,8,,0,
+2020/4/4,El Hierro,3,,0,
+2020/4/5,Canaries,1622,62,80,137
+2020/4/5,Tenerife,971,,51,
+2020/4/5,Gran Canaria,467,,22,
+2020/4/5,La Palma,69,,4,
+2020/4/5,Lanzarote,69,,3,
+2020/4/5,Fuerteventura,35,,0,
+2020/4/5,La Gomera,8,,0,
+2020/4/5,El Hierro,3,,0,
+2020/4/6,Canaries,1649,27,85,157
+2020/4/6,Tenerife,1080,,56,
+2020/4/6,Gran Canaria,411,,24,
+2020/4/6,La Palma,66,,3,
+2020/4/6,Lanzarote,58,,2,
+2020/4/6,Fuerteventura,23,,0,
+2020/4/6,La Gomera,7,,0,
+2020/4/6,El Hierro,1,,0,

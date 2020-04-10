@@ -1,0 +1,1 @@
+This directory is where the output .html from `../scripts/*.py` goes.
