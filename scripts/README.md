@@ -1,5 +1,19 @@
 # Scripts
 
+## `canaries-deaths-over-time.py`
+
+This creates an html file (`../output/canaries-deaths-over-time.html) which is an interactive graph
+of expected and confirmed *deaths* on the canary islands for some months.
+
+It highlights the following:
+ - The first reported death in China
+ - The first reported death in the Canary Islands (first in Spain)
+ - The date of the full lockdown in spain
+ 
+Note the spike in deaths of the elderly immediately following the first chinese death, but
+before any testing had been done here. Also note the sharp decline in deaths as the island
+population begins to self-impose social distancing as the news of local infections breaks.
+
 ## `canaries-infections-over-time.py`
 
 This creates an html file (`../output/cases-over-time.html`) which is an interactive graph of the confirmed covid 
