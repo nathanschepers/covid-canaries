@@ -1,5 +1,10 @@
 # Data Sourices
 
+## `canarias_deaths.csv`
+
+Number of deaths in the Canary islands (all causes). Found 
+[here](https://momo.isciii.es/public/momo/dashboard/momo_dashboard.html#datos).
+
 ## `cases.csv`
 
 Number of cases, fatalities, recoveries per island. taken from daily briefings from Canarian health
