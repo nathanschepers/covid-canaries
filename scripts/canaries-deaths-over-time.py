@@ -7,6 +7,12 @@ from bokeh.models import DatetimeTickFormatter, HoverTool, Span, Label, Panel, T
 from bokeh.palettes import Colorblind8
 from bokeh.plotting import figure
 
+#TODO: general cleanup
+#TODO: fix NaN hover issue
+#TODO: demographic data
+#TODO: publish?
+#TODO: put all these stupid dates somewhere in one place
+
 output_file("../output/deaths-over-time.html", title='COVID Canarias')
 
 # read the canarias COVID summary data
@@ -113,8 +119,10 @@ for (figure, data) in foo:
     figure.line(x='index', y='defunciones_esperadas', source=data,
                 legend_label='Expected Deaths', name='Expected Deaths', color=palette[1], line_width=2)
 
-    figure.line(x='index', y='expected_plus_covid', source=data,
-                legend_label='Covid Deaths', name='Covid Deaths', color='red', line_width=2)
+    # since the covid deaths isn't broken down by demographic, we will only display it where it is correct
+    if (figure == all_figure):
+        figure.line(x='index', y='expected_plus_covid', source=data,
+                    legend_label='Covid Deaths', name='Covid Deaths', color='red', line_width=2)
 
 # add lockdown span
 lockdown_date = time.mktime(dt(2020, 3, 14, 0, 0, 0).timetuple()) * 1000
