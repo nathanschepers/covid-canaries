@@ -3,19 +3,17 @@ from datetime import datetime as dt
 
 import pandas as pd
 from bokeh.io import output_file, show
-from bokeh.models import DatetimeTickFormatter, HoverTool, Span, Label, Band, ColumnDataSource, Range1d, DataRange1d
+from bokeh.models import DatetimeTickFormatter, HoverTool, Span, Label, Band, ColumnDataSource, Range1d, DataRange1d, \
+    CustomJSHover
 from bokeh.palettes import Colorblind8
 from bokeh.plotting import figure
 
-# TODO: fix NaN hover issue
 
 output_file("../output/deaths-over-time.html", title='COVID Canarias')
 
 # read the canarias COVID summary data
 arcgis_df = pd.read_csv("../data/canarias_arcgis.csv", parse_dates=['date'])
 arcgis_df = arcgis_df[arcgis_df['region'] == 'Canaries']
-
-# filter data for covid deaths in the canary islands since February this year
 arcgis_df = arcgis_df[(arcgis_df['date'] >= '2020-02-01')]
 
 # get deltas in number of deaths
@@ -29,8 +27,6 @@ arcgis_df = arcgis_df.resample('D', on='date').sum()
 
 # read the MoMo deaths data
 momo_df = pd.read_csv("https://momo.isciii.es/public/momo/data", parse_dates=['fecha_defuncion'])
-
-# filter for all deaths in the canary islands this year
 momo_df = momo_df[(momo_df['cod_sexo'] == 'all') &
                   (momo_df['cod_gedad'] == 'all') &
                   (momo_df['cod_ambito'] == 'CN') &
@@ -45,28 +41,36 @@ merged_df['expected_plus_covid'] = merged_df['defunciones_esperadas'] + merged_d
 merged_df["datestring"] = merged_df.index.strftime("%b %d")
 
 # set up the figure
-p = figure(plot_width=1000, plot_height=400, tools='hover,pan,wheel_zoom,reset',
+p = figure(plot_width=1000, plot_height=400, tools='pan,wheel_zoom,reset',
            x_axis_type="datetime", toolbar_location="below", name='COVID - Canary Islands',
            x_range=DataRange1d(bounds="auto"),
            y_range=Range1d(0, (max(merged_df['defunciones_esperadas_q99']) + 25), bounds="auto"))
 
-# set the palette
-palette = Colorblind8
+# Set up hover tooltips
+covid_hover_formatter = CustomJSHover(code="""
+    if (isNaN(value)) {
+        return "-"
+    }
+    return value.toString();
+""")
 
-# set up hover tooltips
-hover = p.select(dict(type=HoverTool))
-hover.tooltips = [
-    ("Date", '@datestring'),
-    ("Expected Deaths", "@defunciones_esperadas"),
-    ("Observed Deaths", "@defunciones_observadas"),
-    ("COVID Deaths", "@deaths_covid")
-]
+p.add_tools(HoverTool(
+    tooltips=[("Date", '@datestring'),
+              ("Expected Deaths", "@defunciones_esperadas"),
+              ("Observed Deaths", "@defunciones_observadas"),
+              ('COVID-19 Deaths', '@deaths_covid{custom}')],
+    formatters={'@deaths_covid': covid_hover_formatter}
+))
+
+# format x axis
 p.xaxis.formatter = DatetimeTickFormatter(
     hours=["%B %-d"],
     days=["%B %-d"],
     months=["%B %-d"],
     years=["%B %-d"],
 )
+
+palette = Colorblind8
 
 # add lines
 p.line(x='index', y='defunciones_observadas', source=merged_df, legend_label='Observed Deaths', name='Observed Deaths',
