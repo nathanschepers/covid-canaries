@@ -4,7 +4,7 @@
 
 Canary islands cases information (including deaths from COVID-19). Scraped from 
 [here](https://grafcan1.maps.arcgis.com/apps/opsdashboard/index.html#/156eddd4d6fa4ff1987468d1fd70efb6)
-by `../scripts/update_canarias_cases.py`
+by `../scripts/update-canarias-cases.py`
 
 ## `canarias_momo.csv`
 

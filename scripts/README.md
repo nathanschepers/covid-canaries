@@ -1,6 +1,6 @@
 # Scripts
 
-## `update_canarias_cases.py`
+## `update-canarias-cases.py`
 
 This adds a new row to `../data/canarias_arcgis.csv` with case (and death) data from the day
 that it is run.
