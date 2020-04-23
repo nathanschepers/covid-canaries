@@ -1,5 +1,13 @@
 # Scripts
 
+## `update_canarias_cases.py`
+
+This adds a new row to `../data/canarias_arcgis.csv` with case (and death) data from the day
+that it is run.
+
+Data is scraped from 
+[here](https://grafcan1.maps.arcgis.com/apps/opsdashboard/index.html#/156eddd4d6fa4ff1987468d1fd70efb6).
+
 ## `canaries-deaths-over-time.py`
 
 This creates an html file (`../output/canaries-deaths-over-time.html) which is an interactive graph
