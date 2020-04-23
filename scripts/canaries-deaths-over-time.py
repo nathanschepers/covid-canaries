@@ -12,54 +12,57 @@ from bokeh.plotting import figure
 output_file("../output/deaths-over-time.html", title='COVID Canarias')
 
 # read the canarias COVID summary data
-covid_df = pd.read_csv("../data/canarias_arcgis.csv", parse_dates=['date'])
-covid_df = covid_df[covid_df['region'] == 'Canaries']
+arcgis_df = pd.read_csv("../data/canarias_arcgis.csv", parse_dates=['date'])
+arcgis_df = arcgis_df[arcgis_df['region'] == 'Canaries']
 
-# set time bounds
-covid_df = covid_df[(covid_df['date'] >= '2020-02-01')]
+# filter data for covid deaths in the canary islands since February this year
+arcgis_df = arcgis_df[(arcgis_df['date'] >= '2020-02-01')]
 
 # get deltas in number of deaths
-covid_df = covid_df.merge(
-    covid_df['deaths'].diff(),
+arcgis_df = arcgis_df.merge(
+    arcgis_df['deaths'].diff(),
     left_index=True, right_index=True, suffixes=['', '_covid']
 ).fillna(0)
 
-# here we could resample the data if we want to see it by week or month
-covid_deaths = covid_df.resample('D', on='date').sum()
+# resample and set index
+arcgis_df = arcgis_df.resample('D', on='date').sum()
 
-all_deaths = pd.read_csv("https://momo.isciii.es/public/momo/data", parse_dates=['fecha_defuncion'])
+# read the MoMo deaths data
+momo_df = pd.read_csv("https://momo.isciii.es/public/momo/data", parse_dates=['fecha_defuncion'])
 
-all_deaths = all_deaths[(all_deaths['cod_sexo'] == 'all') &
-                        (all_deaths['cod_gedad'] == 'all') &
-                        (all_deaths['cod_ambito'] == 'CN') &
-                        (all_deaths['fecha_defuncion'] > '2019-12-01')]
+# filter for all deaths in the canary islands this year
+momo_df = momo_df[(momo_df['cod_sexo'] == 'all') &
+                  (momo_df['cod_gedad'] == 'all') &
+                  (momo_df['cod_ambito'] == 'CN') &
+                  (momo_df['fecha_defuncion'] > '2019-12-01')]
 
-all_deaths = all_deaths.resample('D', on='fecha_defuncion').sum()
-all_deaths["datestring"] = all_deaths.index.strftime("%b %d")
+# resample and set index
+momo_df = momo_df.resample('D', on='fecha_defuncion').sum()
 
 # merge the data sets
-merged_all = pd.merge(covid_deaths, all_deaths, left_index=True, right_index=True, how='outer')
-merged_all['expected_plus_covid'] = merged_all['defunciones_esperadas'] + merged_all['deaths_covid']
+merged_df = pd.merge(arcgis_df, momo_df, left_index=True, right_index=True, how='outer')
+merged_df['expected_plus_covid'] = merged_df['defunciones_esperadas'] + merged_df['deaths_covid']
+merged_df["datestring"] = merged_df.index.strftime("%b %d")
 
 # set up the figure
-all_figure = figure(plot_width=1000, plot_height=400, tools='hover,pan,wheel_zoom,box_zoom,reset',
-                    x_axis_type="datetime", toolbar_location="below", name='COVID - Canary Islands',
-                    x_range=DataRange1d(bounds="auto"),
-                    y_range=Range1d(0,
-                                    (max(merged_all['defunciones_esperadas_q99']) + 25), bounds="auto"))
+p = figure(plot_width=1000, plot_height=400, tools='hover,pan,wheel_zoom,reset',
+           x_axis_type="datetime", toolbar_location="below", name='COVID - Canary Islands',
+           x_range=DataRange1d(bounds="auto"),
+           y_range=Range1d(0,
+                           (max(merged_df['defunciones_esperadas_q99']) + 25), bounds="auto"))
 
 # set the palette
 palette = Colorblind8
 
 # set up hover tooltips
-hover = all_figure.select(dict(type=HoverTool))
+hover = p.select(dict(type=HoverTool))
 hover.tooltips = [
     ("Date", '@datestring'),
     ("Expected Deaths", "@defunciones_esperadas"),
     ("Observed Deaths", "@defunciones_observadas"),
     ("COVID Deaths", "@deaths_covid")
 ]
-all_figure.xaxis.formatter = DatetimeTickFormatter(
+p.xaxis.formatter = DatetimeTickFormatter(
     hours=["%B %-d"],
     days=["%B %-d"],
     months=["%B %-d"],
@@ -67,14 +70,19 @@ all_figure.xaxis.formatter = DatetimeTickFormatter(
 )
 
 # add lines
-all_figure.line(x='index', y='defunciones_observadas', source=merged_all,
-                legend_label='Observed Deaths', name='Observed Deaths', color=palette[0], line_width=2)
+p.line(x='index', y='defunciones_observadas', source=merged_df,
+       legend_label='Observed Deaths', name='Observed Deaths', color=palette[0], line_width=2)
 
-all_figure.line(x='index', y='defunciones_esperadas', source=merged_all,
-                legend_label='Expected Deaths', name='Expected Deaths', color=palette[1], line_width=2)
+p.line(x='index', y='defunciones_esperadas', source=merged_df,
+       legend_label='Expected Deaths', name='Expected Deaths', color=palette[1], line_width=2)
 
-all_figure.line(x='index', y='expected_plus_covid', source=merged_all,
-                legend_label='Covid Deaths', name='Covid Deaths', color='red', line_width=2)
+p.line(x='index', y='expected_plus_covid', source=merged_df,
+       legend_label='Covid Deaths', name='Covid Deaths', color='red', line_width=2)
+
+# create and add bands
+confidence_interval = Band(base='index', lower='defunciones_esperadas_q99', upper='defunciones_esperadas_q01',
+                           source=ColumnDataSource(merged_df), level='underlay', fill_alpha=1.0, line_width=1, line_color='black')
+p.add_layout(confidence_interval)
 
 # create lockdown span
 lockdown_date = time.mktime(dt(2020, 3, 14, 0, 0, 0).timetuple()) * 1000
@@ -100,20 +108,15 @@ canaries_start = Span(location=canaries_date,
 canaries_label = Label(x=canaries_date, y=10, y_units='screen', text=' Spain', text_font='helvetica',
                        text_font_size='9pt', text_color='#444444')
 
-# create and add bands
-band_all = Band(base='index', lower='defunciones_esperadas_q99', upper='defunciones_esperadas_q01',
-                source=ColumnDataSource(merged_all), level='underlay', fill_alpha=1.0, line_width=1, line_color='black')
-all_figure.add_layout(band_all)
-
 # add spans and legend
-all_figure.add_layout(lockdown_start)
-all_figure.add_layout(lockdown_label)
-all_figure.add_layout(china_start)
-all_figure.add_layout(china_label)
-all_figure.add_layout(canaries_start)
-all_figure.add_layout(canaries_label)
-all_figure.legend.location = 'top_left'
-all_figure.legend.click_policy = "hide"
+p.add_layout(lockdown_start)
+p.add_layout(lockdown_label)
+p.add_layout(china_start)
+p.add_layout(china_label)
+p.add_layout(canaries_start)
+p.add_layout(canaries_label)
+p.legend.location = 'top_left'
+p.legend.click_policy = "hide"
 
 # create the plot
-show(all_figure)
+show(p)
