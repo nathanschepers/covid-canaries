@@ -3,7 +3,7 @@ from datetime import datetime as dt
 
 import pandas as pd
 from bokeh.io import output_file, show
-from bokeh.models import DatetimeTickFormatter, HoverTool, Span, Label, Band, ColumnDataSource
+from bokeh.models import DatetimeTickFormatter, HoverTool, Span, Label, Band, ColumnDataSource, Range1d, DataRange1d
 from bokeh.palettes import Colorblind8
 from bokeh.plotting import figure
 
@@ -44,8 +44,9 @@ merged_all['expected_plus_covid'] = merged_all['defunciones_esperadas'] + merged
 # set up the figure
 all_figure = figure(plot_width=1000, plot_height=400, tools='hover,pan,wheel_zoom,box_zoom,reset',
                     x_axis_type="datetime", toolbar_location="below", name='COVID - Canary Islands',
-                    y_range=(0,
-                             (max(merged_all['defunciones_esperadas_q99']) + 25)))
+                    x_range=DataRange1d(bounds="auto"),
+                    y_range=Range1d(0,
+                                    (max(merged_all['defunciones_esperadas_q99']) + 25), bounds="auto"))
 
 # set the palette
 palette = Colorblind8
@@ -59,10 +60,10 @@ hover.tooltips = [
     ("COVID Deaths", "@deaths_covid")
 ]
 all_figure.xaxis.formatter = DatetimeTickFormatter(
-    hours=["%B %d"],
-    days=["%B %d"],
-    months=["%B %d"],
-    years=["%B %d"],
+    hours=["%B %-d"],
+    days=["%B %-d"],
+    months=["%B %-d"],
+    years=["%B %-d"],
 )
 
 # add lines
