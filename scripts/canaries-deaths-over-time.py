@@ -48,8 +48,7 @@ merged_df["datestring"] = merged_df.index.strftime("%b %d")
 p = figure(plot_width=1000, plot_height=400, tools='hover,pan,wheel_zoom,reset',
            x_axis_type="datetime", toolbar_location="below", name='COVID - Canary Islands',
            x_range=DataRange1d(bounds="auto"),
-           y_range=Range1d(0,
-                           (max(merged_df['defunciones_esperadas_q99']) + 25), bounds="auto"))
+           y_range=Range1d(0, (max(merged_df['defunciones_esperadas_q99']) + 25), bounds="auto"))
 
 # set the palette
 palette = Colorblind8
@@ -70,51 +69,45 @@ p.xaxis.formatter = DatetimeTickFormatter(
 )
 
 # add lines
-p.line(x='index', y='defunciones_observadas', source=merged_df,
-       legend_label='Observed Deaths', name='Observed Deaths', color=palette[0], line_width=2)
+p.line(x='index', y='defunciones_observadas', source=merged_df, legend_label='Observed Deaths', name='Observed Deaths',
+       color=palette[0], line_width=2)
 
-p.line(x='index', y='defunciones_esperadas', source=merged_df,
-       legend_label='Expected Deaths', name='Expected Deaths', color=palette[1], line_width=2)
+p.line(x='index', y='defunciones_esperadas', source=merged_df, legend_label='Expected Deaths', name='Expected Deaths',
+       color=palette[1], line_width=2)
 
-p.line(x='index', y='expected_plus_covid', source=merged_df,
-       legend_label='Covid Deaths', name='Covid Deaths', color='red', line_width=2)
+p.line(x='index', y='expected_plus_covid', source=merged_df, legend_label='Covid Deaths', name='Covid Deaths',
+       color='red', line_width=2)
 
 # create and add bands
 confidence_interval = Band(base='index', lower='defunciones_esperadas_q99', upper='defunciones_esperadas_q01',
-                           source=ColumnDataSource(merged_df), level='underlay', fill_alpha=1.0, line_width=1, line_color='black')
+                           source=ColumnDataSource(merged_df), level='underlay', fill_alpha=1.0, line_width=1,
+                           line_color='black')
 p.add_layout(confidence_interval)
 
 # create lockdown span
 lockdown_date = time.mktime(dt(2020, 3, 14, 0, 0, 0).timetuple()) * 1000
-lockdown_start = Span(location=lockdown_date,
-                      dimension='height', line_color=palette[3],
-                      line_dash='dashed', line_width=3)
+lockdown_start = Span(location=lockdown_date, dimension='height', line_color=palette[3], line_dash='dashed',
+                      line_width=3)
 lockdown_label = Label(x=lockdown_date, y=10, y_units='screen', text=' Lockdown', text_font='helvetica',
-                       text_font_size='9pt', text_color='#444444')
+                       text_font_size='9pt')
 
 # create china span
 china_date = time.mktime(dt(2020, 1, 11, 0, 0, 0).timetuple()) * 1000
-china_start = Span(location=china_date,
-                   dimension='height', line_color=palette[4],
-                   line_dash='dashed', line_width=3)
-china_label = Label(x=china_date, y=10, y_units='screen', text=' China', text_font='helvetica',
-                    text_font_size='9pt', text_color='#444444')
+china_start = Span(location=china_date, dimension='height', line_color=palette[4], line_dash='dashed', line_width=3)
+china_label = Label(x=china_date, y=10, y_units='screen', text=' China', text_font='helvetica', text_font_size='9pt')
 
 # create canaries span
-canaries_date = time.mktime(dt(2020, 2, 1, 0, 0, 0).timetuple()) * 1000
-canaries_start = Span(location=canaries_date,
-                      dimension='height', line_color=palette[5],
-                      line_dash='dashed', line_width=3)
-canaries_label = Label(x=canaries_date, y=10, y_units='screen', text=' Spain', text_font='helvetica',
-                       text_font_size='9pt', text_color='#444444')
+spain_date = time.mktime(dt(2020, 2, 1, 0, 0, 0).timetuple()) * 1000
+spain_start = Span(location=spain_date, dimension='height', line_color=palette[5], line_dash='dashed', line_width=3)
+spain_label = Label(x=spain_date, y=10, y_units='screen', text=' Spain', text_font='helvetica', text_font_size='9pt')
 
 # add spans and legend
 p.add_layout(lockdown_start)
 p.add_layout(lockdown_label)
 p.add_layout(china_start)
 p.add_layout(china_label)
-p.add_layout(canaries_start)
-p.add_layout(canaries_label)
+p.add_layout(spain_start)
+p.add_layout(spain_label)
 p.legend.location = 'top_left'
 p.legend.click_policy = "hide"
 
