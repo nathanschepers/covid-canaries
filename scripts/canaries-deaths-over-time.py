@@ -133,5 +133,5 @@ with open('../docs/page.template', 'r') as file:
 filedata = filedata.replace('{PLACEHOLDER}', item_text)
 
 # Write the file out again
-with open('../docs/covid-canarias.md', 'w') as file:
+with open('../docs/README.md', 'w') as file:
     file.write(filedata)
