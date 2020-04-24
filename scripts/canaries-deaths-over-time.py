@@ -1,15 +1,16 @@
 import time
 from datetime import datetime as dt
+import json
 
 import pandas as pd
+from bokeh.embed import json_item
 from bokeh.io import output_file, show
 from bokeh.models import DatetimeTickFormatter, HoverTool, Span, Label, Band, ColumnDataSource, Range1d, DataRange1d, \
-    CustomJSHover
+    CustomJSHover, Legend
 from bokeh.palettes import Colorblind8
 from bokeh.plotting import figure
 
-
-output_file("../output/deaths-over-time.html", title='COVID Canarias')
+output_file("../docs/covid-canarias.html", title='COVID Canarias')
 
 # read the canarias COVID summary data
 arcgis_df = pd.read_csv("../data/canarias_arcgis.csv", parse_dates=['date'])
@@ -45,6 +46,7 @@ p = figure(plot_width=1000, plot_height=400, tools='pan,wheel_zoom,reset',
            x_axis_type="datetime", toolbar_location="below", name='COVID - Canary Islands',
            x_range=DataRange1d(bounds="auto"),
            y_range=Range1d(0, (max(merged_df['defunciones_esperadas_q99']) + 25), bounds="auto"))
+p.sizing_mode = 'scale_width'
 
 # Set up hover tooltips
 covid_hover_formatter = CustomJSHover(code="""
@@ -73,14 +75,21 @@ p.xaxis.formatter = DatetimeTickFormatter(
 palette = Colorblind8
 
 # add lines
-p.line(x='index', y='defunciones_observadas', source=merged_df, legend_label='Observed Deaths', name='Observed Deaths',
-       color=palette[0], line_width=2)
+observed_line = p.line(x='index', y='defunciones_observadas', source=merged_df, name='Observed Deaths',
+                       color=palette[0], line_width=2)
 
-p.line(x='index', y='defunciones_esperadas', source=merged_df, legend_label='Expected Deaths', name='Expected Deaths',
-       color=palette[1], line_width=2)
+expected_line = p.line(x='index', y='defunciones_esperadas', source=merged_df, name='Expected Deaths', color=palette[1],
+                       line_width=2)
 
-p.line(x='index', y='expected_plus_covid', source=merged_df, legend_label='Covid Deaths', name='Covid Deaths',
-       color='red', line_width=2)
+covid_line = p.line(x='index', y='expected_plus_covid', source=merged_df, name='COVID-19 Deaths', color='red',
+                    line_width=2)
+
+legend = Legend(items=[
+    ("Observed Deaths", [observed_line]),
+    ("Expected Deaths", [expected_line]),
+    ("COVID-19 Deaths", [covid_line]),
+], location="center")
+p.add_layout(legend, 'right')
 
 # create and add bands
 confidence_interval = Band(base='index', lower='defunciones_esperadas_q99', upper='defunciones_esperadas_q01',
@@ -112,8 +121,17 @@ p.add_layout(china_start)
 p.add_layout(china_label)
 p.add_layout(spain_start)
 p.add_layout(spain_label)
-p.legend.location = 'top_left'
-p.legend.click_policy = "hide"
 
-# create the plot
-show(p)
+
+# create the json data for the plot
+item_text = json.dumps(json_item(p, "COVID Canarias"))
+
+with open('../docs/covid-canarias.html', 'r') as file:
+    filedata = file.read()
+
+# Replace the target string
+filedata = filedata.replace('{PLACEHOLDER}', item_text)
+
+# Write the file out again
+with open('../docs/index.html', 'w') as file:
+    file.write(filedata)
