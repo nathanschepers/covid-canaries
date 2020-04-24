@@ -126,12 +126,12 @@ p.add_layout(spain_label)
 # create the json data for the plot
 item_text = json.dumps(json_item(p, "COVID Canarias"))
 
-with open('../docs/covid-canarias.html', 'r') as file:
+with open('../docs/page.template', 'r') as file:
     filedata = file.read()
 
 # Replace the target string
 filedata = filedata.replace('{PLACEHOLDER}', item_text)
 
 # Write the file out again
-with open('../docs/index.html', 'w') as file:
+with open('../docs/covid-canarias.md', 'w') as file:
     file.write(filedata)
