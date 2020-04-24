@@ -4,7 +4,7 @@ import json
 
 import pandas as pd
 from bokeh.embed import json_item
-from bokeh.io import output_file, show
+from bokeh.io import output_file
 from bokeh.models import DatetimeTickFormatter, HoverTool, Span, Label, Band, ColumnDataSource, Range1d, DataRange1d, \
     CustomJSHover, Legend
 from bokeh.palettes import Colorblind8
@@ -43,7 +43,7 @@ merged_df["datestring"] = merged_df.index.strftime("%b %d")
 
 # set up the figure
 p = figure(plot_width=1000, plot_height=400, tools='pan,wheel_zoom,reset',
-           x_axis_type="datetime", toolbar_location="below", name='COVID - Canary Islands',
+           x_axis_type="datetime", toolbar_location=None, name='COVID - Canary Islands',
            x_range=DataRange1d(bounds="auto"),
            y_range=Range1d(0, (max(merged_df['defunciones_esperadas_q99']) + 25), bounds="auto"))
 p.sizing_mode = 'scale_width'
@@ -84,13 +84,6 @@ expected_line = p.line(x='index', y='defunciones_esperadas', source=merged_df, n
 covid_line = p.line(x='index', y='expected_plus_covid', source=merged_df, name='COVID-19 Deaths', color='red',
                     line_width=2)
 
-legend = Legend(items=[
-    ("Observed Deaths", [observed_line]),
-    ("Expected Deaths", [expected_line]),
-    ("COVID-19 Deaths", [covid_line]),
-], location="center")
-p.add_layout(legend, 'right')
-
 # create and add bands
 confidence_interval = Band(base='index', lower='defunciones_esperadas_q99', upper='defunciones_esperadas_q01',
                            source=ColumnDataSource(merged_df), level='underlay', fill_alpha=1.0, line_width=1,
@@ -122,6 +115,13 @@ p.add_layout(china_label)
 p.add_layout(spain_start)
 p.add_layout(spain_label)
 
+legend = Legend(items=[
+    ("Observed Deaths", [observed_line]),
+    ("Expected Deaths", [expected_line]),
+    ("COVID-19 Deaths", [covid_line]),
+], location="center")
+legend.label_text_font_size = "10pt"
+p.add_layout(legend, 'below')
 
 # create the json data for the plot
 item_text = json.dumps(json_item(p, "COVID Canarias"))
