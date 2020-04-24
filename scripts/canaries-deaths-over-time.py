@@ -76,13 +76,13 @@ palette = Colorblind8
 
 # add lines
 observed_line = p.line(x='index', y='defunciones_observadas', source=merged_df, name='Observed Deaths',
-                       color=palette[0], line_width=2)
+                       legend_label='Observed', color=palette[0], line_width=1)
 
 expected_line = p.line(x='index', y='defunciones_esperadas', source=merged_df, name='Expected Deaths', color=palette[1],
-                       line_width=2)
+                       legend_label='Expected', line_width=1)
 
 covid_line = p.line(x='index', y='expected_plus_covid', source=merged_df, name='COVID-19 Deaths', color='red',
-                    line_width=2)
+                    legend_label='COVID-19', line_width=1)
 
 # create and add bands
 confidence_interval = Band(base='index', lower='defunciones_esperadas_q99', upper='defunciones_esperadas_q01',
@@ -93,18 +93,18 @@ p.add_layout(confidence_interval)
 # create lockdown span
 lockdown_date = time.mktime(dt(2020, 3, 14, 0, 0, 0).timetuple()) * 1000
 lockdown_start = Span(location=lockdown_date, dimension='height', line_color=palette[3], line_dash='dashed',
-                      line_width=3)
+                      line_width=2)
 lockdown_label = Label(x=lockdown_date, y=10, y_units='screen', text=' Lockdown', text_font='helvetica',
                        text_font_size='9pt')
 
 # create china span
 china_date = time.mktime(dt(2020, 1, 11, 0, 0, 0).timetuple()) * 1000
-china_start = Span(location=china_date, dimension='height', line_color=palette[4], line_dash='dashed', line_width=3)
+china_start = Span(location=china_date, dimension='height', line_color=palette[4], line_dash='dashed', line_width=2)
 china_label = Label(x=china_date, y=10, y_units='screen', text=' China', text_font='helvetica', text_font_size='9pt')
 
 # create canaries span
 spain_date = time.mktime(dt(2020, 2, 1, 0, 0, 0).timetuple()) * 1000
-spain_start = Span(location=spain_date, dimension='height', line_color=palette[5], line_dash='dashed', line_width=3)
+spain_start = Span(location=spain_date, dimension='height', line_color=palette[5], line_dash='dashed', line_width=2)
 spain_label = Label(x=spain_date, y=10, y_units='screen', text=' Spain', text_font='helvetica', text_font_size='9pt')
 
 # add spans and legend
@@ -115,13 +115,14 @@ p.add_layout(china_label)
 p.add_layout(spain_start)
 p.add_layout(spain_label)
 
-legend = Legend(items=[
-    ("Observed Deaths", [observed_line]),
-    ("Expected Deaths", [expected_line]),
-    ("COVID-19 Deaths", [covid_line]),
-], location="center")
-legend.label_text_font_size = "10pt"
-p.add_layout(legend, 'below')
+p.legend.location = "top_left"
+p.legend.click_policy = "hide"
+p.legend.label_text_font_size = "8pt"
+p.legend.spacing = 0
+p.legend.border_line_color = None
+
+p.border_fill_color = "whitesmoke"
+p.min_border_top = 15
 
 # create the json data for the plot
 item_text = json.dumps(json_item(p, "COVID Canarias"))

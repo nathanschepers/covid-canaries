@@ -2,7 +2,7 @@
 # COVID-19 Deaths in the Canary Islands
 
 <div id="COVID Canarias"></div>
-
+---
 ## The Plot
 
 This plots deaths (all causes) for the Canary Islands over time, with expected deaths for that same time period. The 
