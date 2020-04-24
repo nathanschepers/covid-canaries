@@ -10,14 +10,14 @@ data is from the [MoMo](https://momo.isciii.es/public/momo/dashboard/momo_dashbo
 from a study of the yearly flu in 2012. MoMo computes the expected deaths for a given date based on a long running 
 rolling average.
 
-It adds a line to show the novel coronavirus as unexpected deaths^[1]^. This data is from the 
+It adds a line to show the novel coronavirus as unexpected deaths<sup>[1]</sup>. This data is from the 
 [government of the Canary Islands](https://www3.gobiernodecanarias.org/noticias/).
 
 Three vertical bars have been added to show:
 
 1. The first reported death in China
 2. The first reported case in Spain, which occurred here on La Gomera
-3. The date that strict lockdown^[2]^ measures were imposed
+3. The date that strict lockdown<sup>[2]</sup>> measures were imposed
 
 Data is gathered daily from MoMo and from the Government of the Canary Islands ArcGIS dashboard. The graph is generated 
 using Python with Pandas and Bokeh.
@@ -27,12 +27,12 @@ of how it is put together, please consult the `README.md` files there.
 
 ## Footnotes
 
-^[1]^ : 
+<sup>[1]</sup> : 
 
 This is calculated by summing the number of confirmed Covid-19 deaths with the number of expected deaths for each 
 day.
 
-^[2]^ : 
+<sup>[2]</sup> : 
 
 Lockdown in the Canary islands consisted of a number of measures, including:
 	
