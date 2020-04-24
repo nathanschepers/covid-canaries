@@ -8,7 +8,7 @@ from bokeh.palettes import Colorblind8
 
 import pandas as pd
 
-cases_df = pd.read_csv("../data/cases.csv", parse_dates=['date'])
+cases_df = pd.read_csv("../data/cases_canarias.csv", parse_dates=['date'])
 cases_df["datestring"] = cases_df["date"].dt.strftime("%b %d")
 
 output_file("../output/cases-over-time.html")

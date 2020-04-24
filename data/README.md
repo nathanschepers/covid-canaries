@@ -6,22 +6,15 @@ Canary islands cases information (including deaths from COVID-19). Scraped from
 [here](https://grafcan1.maps.arcgis.com/apps/opsdashboard/index.html#/156eddd4d6fa4ff1987468d1fd70efb6)
 by `../scripts/update-canarias-cases.py`
 
-## `canarias_momo.csv`
+## `cases_canarias.csv`
 
-Number of deaths in the Canary islands (all causes). Found 
-[here](https://momo.isciii.es/public/momo/dashboard/momo_dashboard.html#datos).
-
-## `cases.csv`
+Note: this is old data, and `canarias_arcgis.csv` should be used instead.
 
 Number of cases, fatalities, recoveries per island. taken from daily briefings from Canarian health
 authority, found [here](https://www3.gobiernodecanarias.org/noticias/) until (at least) April 7.
 
 Note that after April 7 the government released a comprehensive ArcGIS application for visualizing the epidemic.
 This application can be found [here](https://grafcan1.maps.arcgis.com/apps/opsdashboard/index.html#/156eddd4d6fa4ff1987468d1fd70efb6).
-
-## `islands.csv`
-
-Island populations from from Wikipedia
 
 ## On Data Cleanliness
 
@@ -40,4 +33,3 @@ casos registrados en función del lugar de declaración y no al de residencia.
 Esto obedece a que hay personas que residen en una isla pero su tarjeta 
 sanitaria está registrada en otra, lo que dificulta el procesamiento de los 
 datos."
-
