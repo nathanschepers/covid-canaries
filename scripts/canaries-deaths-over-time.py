@@ -8,9 +8,9 @@ from bokeh.io import output_file
 from bokeh.models import DatetimeTickFormatter, HoverTool, Span, Label, Band, ColumnDataSource, Range1d, DataRange1d, \
     CustomJSHover, Legend
 from bokeh.palettes import Colorblind8
-from bokeh.plotting import figure
+from bokeh.plotting import figure, show
 
-output_file("../docs/covid-canarias.html", title='COVID Canarias')
+output_file("../output/covid-canarias.html", title='COVID Canarias')
 
 # read the canarias COVID summary data
 arcgis_df = pd.read_csv("../data/canarias_arcgis.csv", parse_dates=['date'])
