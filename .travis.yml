@@ -23,6 +23,8 @@ deploy:
       branch: master
 
 after_success:
+  - tail data/canarias_arcgis.csv
+  - git status
   - git add data/canarias_arcgis.csv
   - git commit --allow-empty -m "[skip travis] Update canarias_arcgis.csv"
   - git push https://nathanschepers:${GITHUB_TOKEN}@github.com/nathanschepers/covid-canarias.git HEAD:master
