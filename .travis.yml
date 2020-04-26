@@ -6,6 +6,7 @@ install:
 script:
   - cd scripts
   - python daily.py
+  - cd ..
 
 before_deploy:
   # Set up git user name and tag this commit
