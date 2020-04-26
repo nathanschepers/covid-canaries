@@ -1,5 +1,5 @@
 <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.0.1.min.js"></script>
-# COVID-19 Deaths in the Canary Islands  - {DATE}
+# COVID-19 Deaths in the Canary Islands
 
 <div id="COVID Canarias"></div>
 ---
@@ -56,6 +56,9 @@ purposes. Essential purposes are defined as:
 - travel to/from a supermarket or pharmacy
 - travel to the doctor or bank
 - dog walking, within a limited radius of home
+
+---
+Updated on: {DATE}
 
 <script>
     item_text = {PLACEHOLDER};
