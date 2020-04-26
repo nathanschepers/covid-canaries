@@ -4,7 +4,7 @@ python:
 install:
   - pip install -r requirements.txt
 script:
-  - daily.py
+  - python daily.py
 
 before_deploy:
   # Set up git user name and tag this commit
