@@ -1,5 +1,5 @@
 <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.0.1.min.js"></script>
-# COVID-19 Deaths in the Canary Islands
+# COVID-19 Deaths in the Canary Islands  - {DATE}
 
 <div id="COVID Canarias"></div>
 ---

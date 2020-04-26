@@ -1,5 +1,5 @@
 import time
-from datetime import datetime as dt
+from datetime import datetime as dt, datetime
 import json
 
 import pandas as pd
@@ -132,6 +132,9 @@ with open('../docs/page.template', 'r') as file:
 
 # Replace the target string
 filedata = filedata.replace('{PLACEHOLDER}', item_text)
+
+now = datetime.now()
+filedata = filedata.replace('{DATE}', now.strftime("%d/%m/%Y %H:%M:%S"))
 
 # Write the file out again
 with open('../docs/README.md', 'w') as file:
