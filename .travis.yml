@@ -12,15 +12,8 @@ before_deploy:
   # Set up git user name and tag this commit
   - git config --local user.name "nathanschepers"
   - git config --local user.email "nathan.schepers@protonmail.com"
-#  - export THIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
-#  - git tag $THIS_TAG
 
 deploy:
-  - provider: releases
-    api_key: $GITHUB_TOKEN
-    file: data/canarias_arcgis.csv
-    skip_cleanup: true
-
   - provider: pages
     skip_cleanup: true
     github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
@@ -28,3 +21,8 @@ deploy:
     local_dir: docs/
     on:
       branch: master
+
+after_success:
+  - git add data/canarias_arcgis.csv
+  - git commit --allow-empty -m "updated canarias_arcgis.csv"
+  - git push https://nathanschepers:${GITHUB_TOKEN}@github.com/nathanschepers/covid-canarias.git HEAD:master
