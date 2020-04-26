@@ -1,6 +1,8 @@
 import requests
 import datetime
+import pandas as pd
 import csv
+
 
 request_headers = {
     'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:75.0) Gecko/20100101 Firefox/75.0',
@@ -60,7 +62,13 @@ total_cases = total_cases_response.json()['features'][0]['attributes']['value']
 
 today_row = [today, 'Canaries', total_cases, '', deaths, recoveries]
 
-with open('../data/canarias_arcgis.csv', 'a') as datafile:
-    writer = csv.writer(datafile, lineterminator='\n')
-    print("writing row:", today_row)
-    writer.writerow(today_row)
+# check if we have been run already today, and if not, then add the new row
+df = pd.read_csv("../data/canarias_arcgis.csv")
+if df.values[-1].tolist()[0] == today_row[0]:
+    print("update_canarias_cases.py: Already run today.")
+else:
+    print("update_canarias_cases.py: First run today.")
+    with open('../data/canarias_arcgis.csv', 'a') as datafile:
+        writer = csv.writer(datafile, lineterminator='\n')
+        print("update_canarias_cases.py: writing row:", today_row)
+        writer.writerow(today_row)

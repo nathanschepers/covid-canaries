@@ -135,4 +135,5 @@ filedata = filedata.replace('{PLACEHOLDER}', item_text)
 
 # Write the file out again
 with open('../docs/README.md', 'w') as file:
+    print("canaries_deaths_over_time.py: Writing new README.md.")
     file.write(filedata)

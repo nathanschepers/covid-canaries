@@ -1,0 +1,28 @@
+language: python
+python:
+  - "3.7"
+install:
+  - pip install -r requirements.txt
+script:
+  - daily.py
+
+before_deploy:
+  # Set up git user name and tag this commit
+  - git config --local user.name "nathanschepers"
+  - git config --local user.email "nathan.schepers@protonmail.com"
+  - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+  - git tag $TRAVIS_TAG
+
+deploy:
+  - provider: releases
+    api_key: $GITHUB_TOKEN
+    file: ./data/canarias_arcgis.csv
+    skip_cleanup: true
+
+  - provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+    keep_history: true
+    local_dir: docs/
+    on:
+      branch: master
