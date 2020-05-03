@@ -97,6 +97,14 @@ lockdown_start = Span(location=lockdown_date, dimension='height', line_color=pal
 lockdown_label = Label(x=lockdown_date, y=10, y_units='screen', text=' Lockdown', text_font='helvetica',
                        text_font_size='9pt')
 
+# create lockdown span
+phase0_date = time.mktime(dt(2020, 5, 2, 0, 0, 0).timetuple()) * 1000
+phase0_start = Span(location=lockdown_date, dimension='height', line_color=palette[6], line_dash='dashed',
+                      line_width=2)
+phase0_label = Label(x=lockdown_date, y=10, y_units='screen', text=' Phase 0', text_font='helvetica',
+                       text_font_size='9pt')
+
+
 # create china span
 china_date = time.mktime(dt(2020, 1, 11, 0, 0, 0).timetuple()) * 1000
 china_start = Span(location=china_date, dimension='height', line_color=palette[4], line_dash='dashed', line_width=2)
@@ -108,6 +116,8 @@ spain_start = Span(location=spain_date, dimension='height', line_color=palette[5
 spain_label = Label(x=spain_date, y=10, y_units='screen', text=' Spain', text_font='helvetica', text_font_size='9pt')
 
 # add spans and legend
+p.add_layout(phase0_start)
+p.add_layout(phase0_label)
 p.add_layout(lockdown_start)
 p.add_layout(lockdown_label)
 p.add_layout(china_start)
