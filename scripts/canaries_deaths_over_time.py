@@ -98,8 +98,8 @@ lockdown_label = Label(x=lockdown_date, y=10, y_units='screen', text=' Lockdown'
                        text_font_size='9pt')
 
 # create lockdown span
-phase0_date = time.mktime(dt(2020, 5, 1, 0, 0, 0).timetuple()) * 1000
-phase0_start = Span(location=lockdown_date, dimension='height', line_color=palette[6], line_dash='dashed',
+phase0_date = time.mktime(dt(2020, 5, 2, 0, 0, 0).timetuple()) * 1000
+phase0_start = Span(location=phase0_date, dimension='height', line_color=palette[6], line_dash='dashed',
                       line_width=2)
 phase0_label = Label(x=phase0_date, y=10, y_units='screen', text=' Phase 0', text_font='helvetica',
                        text_font_size='9pt')
