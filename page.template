@@ -14,11 +14,12 @@ rolling average.
 It adds a line to show the novel coronavirus as unexpected deaths<sup>[1]</sup>. This data is from the
 [government of the Canary Islands](https://www3.gobiernodecanarias.org/noticias/).
 
-Three vertical bars have been added to show:
+Four vertical bars have been added to show:
 
 1. The first reported death in China
 2. The first reported case in Spain, which occurred here on La Gomera
 3. The date that strict lockdown<sup>[2]</sup> measures were imposed
+4. The start date "Phase 0"<sup>[3]</sup> of the lifting of lockdown restrictions
 
 Data is gathered daily from MoMo and from the Government of the Canary Islands ArcGIS dashboard. The graph is generated 
 using Python with Pandas and Bokeh.
@@ -58,6 +59,9 @@ purposes. Essential purposes are defined as:
 - travel to the doctor or bank
 - dog walking, within a limited radius of home
 
+<sup>[3]</sup> :
+
+The gradual lessening of lockdown restrictions are outlined [here](https://english.elpais.com/society/2020-05-01/social-life-under-spains-deescalation-plan-when-can-i-expect-to-visit-family-and-friends.html_.
 ---
 Updated on: {DATE}
 
