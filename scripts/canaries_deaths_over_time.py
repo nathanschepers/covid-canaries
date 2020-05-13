@@ -108,7 +108,7 @@ phase0_label = Label(x=phase0_date, y=10, y_units='screen', text=' 0', text_font
 phase1_date = time.mktime(dt(2020, 5, 11, 0, 0, 0).timetuple()) * 1000
 phase1_start = Span(location=phase1_date, dimension='height', line_color=palette[7], line_dash='dashed',
                     line_width=2)
-phase1_label = Label(x=phase1_date, y=10, y_units='screen', text=' 0', text_font='helvetica',
+phase1_label = Label(x=phase1_date, y=10, y_units='screen', text=' 1', text_font='helvetica',
                      text_font_size='9pt')
 
 # create china span
